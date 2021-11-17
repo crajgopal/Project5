@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> <%= title %></title>
+   <link rel="stylesheet " href ="styles.css">
+</head>
+<body>
+  <%- include('../partials/header1') %>
+  <main>
+   <h4 class="text-center">User info for user :<%= firstname  %></h4>
+
+   <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">FirstName</th>
+        <th scope="col">SurName</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row"></th>
+            <td><%= firstname %></td>
+            <td><%= surname %></td>
+            <td><%= email %></td>
+        </tr>
+<tr></tr>
+    </tbody>
+   </table>
+<div> <br> <div><br></div>
+</div>
+
+ <hr>
+   <br<br>   <br<br>
+
+
+   <h4 class="text-center">Schedule info for user :<%= firstname  %></h4>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Day</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < schedules.length; i++) { %>
+
+            <tr>
+              <th scope="row"></th>
+
+              <% for (let j = 1; j < days.length+1; j++) { %>
+               <% if((schedules[i].day)==j) {%>
+
+              <td><%= days[j-1] %></td>
+              <% } %>
+              <% } %>
+              <td><%= schedules[i].start_time %></td>
+              <td><%= schedules[i].end_time %></td>
+            </tr>
+          <% } %>
+        
+
+        </tbody>
+      
+      </table>
+
+  </main>
+   <%- include('../partials/footer') %>
+</body>
+
+</html> 
