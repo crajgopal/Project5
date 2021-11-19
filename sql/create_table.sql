@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS ratings;
 
 DROP TABLE IF EXISTS users;

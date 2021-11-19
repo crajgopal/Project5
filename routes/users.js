@@ -13,7 +13,7 @@ const flash =require('express-flash')
 
 router.use(flash())
 
-router.post('/login', (req, res)=>{
+router.post('/', (req, res)=>{
 
     const {firstname , surname, email, password, password1} = req.body
     
@@ -62,7 +62,7 @@ router.post('/login', (req, res)=>{
           errors.push({message:"You are now registered . Please login "})
             console.log(errors)
 
-             res.render('pages/index', {errors})         
+             res.render('pages/login', {errors})         
             })       
                  
             .catch((error)=>{

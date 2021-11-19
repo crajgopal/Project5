@@ -27,16 +27,19 @@ const redirectLogin=( req, res, next)=>{
       next()
     }
 
-//Get all ratings to do 
+//Get all ratings 
 router.get('/', redirectLogin, (req, res)=>{
     
-    db.any("SELECT *  FROM ratings;")
+    db.any("SELECT * FROM ratings;")
        .then((ratings) => {
         db.any('SELECT * FROM users;')
         .then((users)=>{
     
          res.render('pages/ratings' , {
-         //to do 
+            title:'Movie DB website',
+            users,
+            message: req.query.message
+    
         });
      })
     
@@ -109,12 +112,38 @@ router.get('/', redirectLogin, (req, res)=>{
 
 
 
-//get newratings page  to do if user wants to update ratings 
+//get newratings page 
 
   router.get('/newratings', redirectLogin, (req, res)=>{
     
-
-
+    db.any("SELECT * FROM ratings;")
+       .then((ratings) => {
+        db.any('SELECT * FROM users;')
+        .then((users)=>{
+    
+         res.render('pages/newratings' , {
+            title:'Rating website',
+            ratings,
+            length:users.length,
+            users,
+            message: req.query.message
+    
+        });
+     })
+    
+      .catch((error) =>{
+    
+        console.log(error)
+        res.redirect("/error?message ="+ error.message)
+      })
+      
+    
+    })
+    .catch((error) =>{
+    
+      console.log(error)
+      res.redirect("/error?message ="+ error.message)
+    })
     
     })
  
@@ -126,15 +155,62 @@ router.get('/', redirectLogin, (req, res)=>{
   
 //create new ratings
 
+router.post('/newratings',redirectLogin, (req, res)=>{
+  const {user_id, movie_id,rating} =req.body
+   
+
+  //add ratings to db
+  
+  db.none('INSERT INTO ratings(user_id, movie_id, rating) VALUES($1, $2, $3);',[user_id, movie_id,rating])
+  
+  
+  .then(() =>{
+
+  res.redirect('/ratings?message=Post+successfully+added') })
+  
+  .catch((error)=>{
+  
+  console.log(error)
+  
+  res.redirect("/error?message=" + error.message)
+  })
+  })
+  
    
 //Post user ratings info 
 
-router.post('/userinfo',redirectLogin, (req, res)=>{
+router.post('/delratings',redirectLogin,(req, res)=>{
+  const{user_id, movie_id,rating} = req.body
+
+
+  const message ="Updated  ratings for user with id "+ user_id 
+  const message1 = "You dont have persmission update others ratings"
+
+if(parseInt(user_id)==req.session.userId){
+  console.log(parseInt(user_id))
+  console.log(req.session.userId)
   
-  
+  db.any('DELETE FROM ratings WHERE user_id = $1 AND movie_id = $2',[user_id,movie_id])
+   .then((ratings)=>{
+    console.log(message)
+
+        res.redirect('/ratings/newratings')
+    
+      })
+    
+  .catch((error)=>{
+    res.redirect("/error?message=" + error.message)
+
   })
+}
+else {
+  res.redirect('/ratings/newratings')
+}  
+  
 
 
+  
+})
 
 
 
