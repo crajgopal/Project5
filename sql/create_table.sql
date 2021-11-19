@@ -16,9 +16,9 @@ password VARCHAR(100) NOT NULL
 CREATE TABLE IF NOT EXISTS ratings(
 
 id SERIAL PRIMARY KEY,
+user_id INTEGER NOT NULL,
 movie_id VARCHAR(60) NOT NULL,
 rating VARCHAR(60) NOT NULL,
-user_id VARCHAR(255) NOT NULL,
 CONSTRAINT fk_users
 FOREIGN KEY(user_id)
 REFERENCES users(id)
@@ -29,20 +29,6 @@ CREATE TABLE IF NOT EXISTS ratings_avg(
     id SERIAL PRIMARY KEY,
     movie_id VARCHAR(60) NOT NULL,
     ave_ratings VARCHAR(60)
-);
-
-
-
-CREATE TABLE IF NOT EXISTS schedules(
-id  SERIAL PRIMARY KEY,
-user_id INTEGER NOT NULL,
-day INTEGER NOT NULL,
-start_time TIME NOT NULL ,
-end_time TIME NOT NULL,
-CONSTRAINT fk_users
-FOREIGN KEY(user_id)
-REFERENCES users(id)
-
 );
 
 
