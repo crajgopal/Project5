@@ -87,44 +87,4 @@ function movieSelected(id){
   return false
 }
 
-/*
-function getMovie(){
-  let movieId =sessionStorage.getItem('movieId')
- console.log("In getMovie"+movieId)
-  $.getJSON("https://api.themoviedb.org/3/movie/"+movieId+"?api_key=7063359f4e85964f78dd5c2aa4165728")
-
-.then((movie)=>{
-  console.log(movie.overview)
-  
-
-  
- let output =`
- <div class ="row">
-  <div class =" col-md-4">
-   <img src ="${img_base_url1}${movie.poster_path}" class ="thumbnail">
-   </div>
-   <div class ="col-md-8">
-   <h3>${movie.title}</h3>
-
-   <h3>Synopsis :${movie.overview}</h3>
-   <h4>Rating :${movie.vote_average}</h4>
-   <h4>Vote Count :${movie.vote_count}</h4>
-   <h4>Release Date :${movie.release_date}</h4>
-   <h4>Revenue :${movie.revenue}</h4>
-
-    </div>
-    </div>
-     `
-     $("#movieinfo").html(output)
-
-     console.log("after append")
-
-
-  })
-  .catch((error)=>{
-console.log(error)
-  })  
-}
-
-*/
 
