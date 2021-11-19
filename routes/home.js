@@ -8,7 +8,6 @@ const bcrypt= require('bcryptjs')
 const nodemailer =require('nodemailer')
 
 const jwt = require('jsonwebtoken')
-const days =['Monday','Tuesday','Wednesday','Thursday', 'Friday', 'Saturday' , 'Sunday']
 router.use(express.urlencoded({extended:true}))//middleware to get req body.
 
 
