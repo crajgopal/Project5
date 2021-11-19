@@ -8,7 +8,6 @@ const router = express.Router() //Create instance of Router
 const db = require('../database')
 const bcrypt= require('bcryptjs')
 
-const days =['Monday','Tuesday','Wednesday','Thursday', 'Friday', 'Saturday' , 'Sunday']
 
 router.use(express.urlencoded({extended:true}))//middleware to get req body.
 
