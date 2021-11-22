@@ -33,7 +33,9 @@ const filterByGenre = () => {
   $.getJSON(
     `https://api.themoviedb.org/3/discover/movie?api_key=7063359f4e85964f78dd5c2aa4165728&with_genres=${genreQueryString}`
   )
-    .then((data) => displayMovies(data))
+    .then((data) => {
+      displayMovies(data);
+    })
     .catch((error) => {
       console.log(error);
     });
@@ -41,10 +43,8 @@ const filterByGenre = () => {
 
 function getMovies(searchText) {
   $.getJSON(
-    'https://api.themoviedb.org/3/search/movie?api_key=7063359f4e85964f78dd5c2aa4165728&query=' +
-      searchText
+    `https://api.themoviedb.org/3/search/movie?api_key=7063359f4e85964f78dd5c2aa4165728&query=${searchText}`
   )
-
     .then((data) => {
       const { results } = data;
       let output = '';
@@ -86,8 +86,11 @@ $.getJSON(
 $(document).ready(() => {
   $('#searchForm').on('submit', (e) => {
     e.preventDefault();
-
     let searchText = $('#search-field').val();
+    $('#genre-checkboxes-container input[type=checkbox]:checked').prop(
+      'checked',
+      false
+    );
     getMovies(searchText);
   });
 });
