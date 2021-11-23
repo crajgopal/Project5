@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     
-    <link rel="stylesheet " href ="styles.css">
+    <link rel="stylesheet " href ="../../styles.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" defer></script>
     
     <!-- Bootstrap JavaScript Bundle with Popper -->
@@ -23,13 +23,13 @@
 </head>
 <body>
 
-    <script src="movieRate.js" defer></script>
+    <script src="../../movieDetails.js" defer></script>
 
 
     <div class="header-dark">
         <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
             <div class="container">
-                <h4 class="navbar-brand"><a href="/">Movie DB </h4></a>
+                <h4 class="navbar-brand">Movie DB </h4>
                 <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav">
@@ -57,22 +57,19 @@
       </div>
   </div>
 
-<main>
 
 
-<h3> Most rated movies </h3>
-  
-<div class="container" >
-    <div  id = "topratedmovies" class ="row" > </div>
-</div>
+    <main>
+            
+        <div class="container" >
+            <div  id = "movieinfo" class ="well" > </div>
+        </div>
+      
+
+    </main>
 
 
+    <%- include('../partials/footer') %>
 
-
-
-</main>
-          
-     <%- include('../partials/footer') %>
-  </body>
-  
-  </html> 
+</body>
+</html>
