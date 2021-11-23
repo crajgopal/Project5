@@ -21,11 +21,10 @@ const img_base_url1 = "https://image.tmdb.org/t/p/w780/"
        <div class ="well text-center">
         <img src ="${img_base_url}${movie.poster_path}">
          <h5>${movie.title}</h5>
-         <h4>Popularity :${movie.popularity}</h4>
          <h4>Release date :${movie.release_date}</h4>
          <h4>Rating :${movie.vote_average}</h4>
-         Your rating  :<div class="form-group"><form class="form-inline mr-auto" target="_self" id ="ratingForm">
-         <input class="form-control search-field" type="text" name="rating" id="rating-field" placeholder="/5"> <button class ="btn btn-light action-button" role ="button">Submit</button>
+         <form  method ="post" action="ratings/movie" onclick ="movieSelected(${movie.id})" class ="btn btn-primary" id ="movieButton" type ="submit" >Rate this movie</form>
+
          </div>
          </div>
          </div>
@@ -33,15 +32,18 @@ const img_base_url1 = "https://image.tmdb.org/t/p/w780/"
 
             })   
       $("#topratedmovies").html(output)
-
-
  
 
   })
   
-
   
   .catch((error)=>{
     console.log(error)
   })
   
+  
+function movieSelected(id) {
+  sessionStorage.setItem('movieId', id);
+  window.location = 'ratings/movieratings';
+  return false;
+}
