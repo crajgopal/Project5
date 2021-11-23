@@ -1,16 +1,12 @@
-
 require('dotenv').config();
 
 const express= require('express')//import express package
-
 const router = express.Router() //Create instance of Router
-
 const db = require('../database')
 const bcrypt= require('bcryptjs')
 
 
 router.use(express.urlencoded({extended:true}))//middleware to get req body.
-
 
 const redirectLogin=( req, res, next)=>{
   if(!req.session.userId)
@@ -19,14 +15,8 @@ const redirectLogin=( req, res, next)=>{
     next()
   }
 
-  const redirectHome=( req, res, next)=>{
-    if(req.session.userId)
-        res.redirect('/ratings')
-    else 
-      next()
-    }
-
-//Get all ratings 
+  
+//Get movies to rate 
 router.get('/', redirectLogin, (req, res)=>{
     
     db.any("SELECT * FROM ratings;")
@@ -58,9 +48,6 @@ router.get('/', redirectLogin, (req, res)=>{
     
     })
  
-
-
-
     router.post('/',(req, res)=>{
       console.log(req.session)        
         const {email, password} = req.body
@@ -109,18 +96,16 @@ router.get('/', redirectLogin, (req, res)=>{
            
 
 
-
-
 //get newratings page 
 
-  router.get('/newratings', redirectLogin, (req, res)=>{
-    
+  router.get('/movieratings', redirectLogin, (req, res)=>{
+    console.log("In ratings")
     db.any("SELECT * FROM ratings;")
        .then((ratings) => {
         db.any('SELECT * FROM users;')
         .then((users)=>{
     
-         res.render('pages/newratings' , {
+         res.render('pages/movieratings' , {
             title:'Rating website',
             ratings,
             length:users.length,
@@ -146,15 +131,10 @@ router.get('/', redirectLogin, (req, res)=>{
     
     })
  
-
-
-
-
-
   
 //create new ratings
 
-router.post('/newratings',redirectLogin, (req, res)=>{
+router.post('/movieratings',redirectLogin, (req, res)=>{
   const {user_id, movie_id,rating} =req.body
    
 
@@ -176,42 +156,5 @@ router.post('/newratings',redirectLogin, (req, res)=>{
   })
   
    
-//Post user ratings info 
-
-router.post('/delratings',redirectLogin,(req, res)=>{
-  const{user_id, movie_id,rating} = req.body
-
-
-  const message ="Updated  ratings for user with id "+ user_id 
-  const message1 = "You dont have persmission update others ratings"
-
-if(parseInt(user_id)==req.session.userId){
-  console.log(parseInt(user_id))
-  console.log(req.session.userId)
-  
-  db.any('DELETE FROM ratings WHERE user_id = $1 AND movie_id = $2',[user_id,movie_id])
-   .then((ratings)=>{
-    console.log(message)
-
-        res.redirect('/ratings/newratings')
-    
-      })
-    
-  .catch((error)=>{
-    res.redirect("/error?message=" + error.message)
-
-  })
-}
-else {
-  res.redirect('/ratings/newratings')
-}  
-  
-
-
-  
-})
-
-
-
 
 module.exports = router 

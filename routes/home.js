@@ -48,6 +48,7 @@ router.get('/login', redirectHome,(req, res) =>{
 
     res.render('pages/login',
     {
+        
         title: "Movie DB app"
     })
 })
