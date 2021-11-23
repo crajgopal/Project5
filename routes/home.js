@@ -1,7 +1,5 @@
 const express = require('express'); //import express package
 
-const axios = require('axios');
-
 const router = express.Router(); //Create instance of Router
 
 const db = require('../database');
@@ -30,15 +28,6 @@ const redirectHome = (req, res, next) => {
 };
 
 router.get('/', redirectHome, (req, res) => {
-  //   db.oneOrNone('SELECT AVG(rating) FROM ratings WHERE movie_id = $1;', [
-  //     movieId,
-  //   ])
-  //     .then((movieRatingsAvg) => {
-  //       console.log(movieRatingsAvg);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
   res.render('pages/index', {
     title: 'Movie DB app',
   });
