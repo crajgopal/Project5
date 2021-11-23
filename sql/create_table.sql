@@ -16,19 +16,19 @@ CREATE TABLE IF NOT EXISTS ratings(
 
 id SERIAL PRIMARY KEY,
 user_id INTEGER NOT NULL,
-movie_id INTEGER NOT NULL,
-rating INTEGER NOT NULL,
+movie_id VARCHAR(60) NOT NULL,
+rating SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
 CONSTRAINT fk_users
 FOREIGN KEY(user_id)
 REFERENCES users(id)
 
 
 );
-CREATE TABLE IF NOT EXISTS ratings_avg(
-    id SERIAL PRIMARY KEY,
-    movie_id VARCHAR(60) NOT NULL,
-    ave_ratings VARCHAR(60)
-);
+-- CREATE TABLE IF NOT EXISTS ratings_avg(
+--     id SERIAL PRIMARY KEY,
+--     movie_id VARCHAR(60) NOT NULL,
+--     ave_ratings VARCHAR(60)
+-- );
 
 
 
