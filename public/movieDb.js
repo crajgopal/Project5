@@ -1,6 +1,20 @@
 const img_base_url = 'https://image.tmdb.org/t/p/w154';
 const img_base_url1 = 'https://image.tmdb.org/t/p/w500/';
 
+// Gets movie average rating from our DB
+
+const getMovieRatings = (movieId) => {
+  db.oneOrNone('SELECT AVG(rating) FROM ratings WHERE movie_id = $1;', [
+    movieId,
+  ])
+    .then((movieRatingsAvg) => {
+      console.log(movieRatingsAvg);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 // Function that renders movies in the homepage
 
 const displayMovies = (data) => {
@@ -24,6 +38,7 @@ const displayMovies = (data) => {
 // Function that fetches movies filtered by selected genre from The MovieDB
 
 const filterByGenre = () => {
+  $('#search-field').val('');
   const selectedGenres = [];
   $('#genre-checkboxes-container input[type=checkbox]:checked').each((i, v) => {
     selectedGenres.push($(v).attr('id'));
@@ -62,7 +77,7 @@ function getMovies(searchText) {
       });
       $('#movies').empty();
 
-      $('#movies1').html(output);
+      $('#movies').html(output);
     })
     .catch((error) => {
       console.log(error);
@@ -78,7 +93,9 @@ function movieSelected(id) {
 $.getJSON(
   'https://api.themoviedb.org/3/discover/movie?api_key=7063359f4e85964f78dd5c2aa4165728'
 )
-  .then((data) => displayMovies(data))
+  .then((data) => {
+    displayMovies(data);
+  })
   .catch((error) => {
     console.log(error);
   });

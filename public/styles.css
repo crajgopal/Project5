@@ -396,3 +396,19 @@ a {
 
   background-color: #269d9d;
 }
+
+
+
+
+
+/**Star CSS **/
+.stars a{
+  color:white;
+  cursor: pointer;
+}
+
+.stars a.active{
+  color: yellow;
+}
+
+
