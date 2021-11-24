@@ -11,12 +11,29 @@ body {
     font: 600 16px/18px 'Open Sans', sans-serif
 }
 
+.row{
+  margin-right:0px;
+  margin-left: 0px;
+}
 .col-md-3{
   padding:15px;
 }
 
 .dropdown-menu{
   padding-left:8px;
+}
+.bg-image{
+  /*background-image: url(https://cdn.pixabay.com/photo/2019/04/24/21/55/cinema-4153289_960_720.jpg);*/
+  background-size:100% 100% ;
+  margin:auto; 
+ height:100%;
+}
+@media (min-width:768px) {
+  .bg-image{
+    background-size:50% 100% ;
+    margin:auto; 
+   height:100%;
+  }
 }
 
 .login-box {
@@ -34,7 +51,8 @@ body {
     height: 100%;
     position: absolute;
     padding: 30px 50px ;
-    background: rgba(150, 236, 179, 0.973)
+    background: rgba(150, 236, 179, 0.973);
+    margin: 0 auto ;
 }
 
 .login-snip .login,
@@ -208,7 +226,7 @@ a {
 
 .card {
     width: 500px;
-    left: 100px
+    margin:auto;
 }
 
 ::placeholder {
@@ -219,12 +237,19 @@ a {
 .header-dark {
     background:rgb(145, 139, 148);
     background-size:cover;
-    padding-bottom :80px;
+    height:25vh;
+    /*padding-bottom :80px;*/
   }
   
   @media (min-width:768px) {
     .header-dark {
-      padding-bottom:120px;
+      /*padding-bottom:120px;*/
+    }
+    .bg-image{
+    
+      background-size:50% 100% ;
+      margin:auto; 
+     height:100%;
     }
   }
   
