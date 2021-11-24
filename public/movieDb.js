@@ -38,6 +38,7 @@ const displayMovies = (data) => {
 // Function that fetches movies filtered by selected genre from The MovieDB
 
 const filterByGenre = () => {
+  $('#search-field').val('');
   const selectedGenres = [];
   $('#genre-checkboxes-container input[type=checkbox]:checked').each((i, v) => {
     selectedGenres.push($(v).attr('id'));
@@ -76,7 +77,7 @@ function getMovies(searchText) {
       });
       $('#movies').empty();
 
-      $('#movies1').html(output);
+      $('#movies').html(output);
     })
     .catch((error) => {
       console.log(error);

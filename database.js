@@ -7,11 +7,10 @@ const pgp = require('pg-promise')();
 // const pgp = require('pg')
 // const isProduction =process.env.NODE_ENV ==='production'
 
-
 //connection string
-const con = 'postgres://postgres:22@localhost:5432/project5'
+// const con = 'postgres://postgres:22@localhost:5432/project5'
 
-//const con = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+const con = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 //  const db= pgp({ con:isProduction ? process.env.DB_DATEBASE_URL:con })
 
 //create new instance of database
