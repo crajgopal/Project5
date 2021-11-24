@@ -1,20 +1,21 @@
-   //loading and initialising library
+//loading and initialising library
 
-   require("dotenv").config()
-   
-   const pgp = require('pg-promise')()
+require('dotenv').config();
 
- // const pgp = require('pg')
-  // const isProduction =process.env.NODE_ENV ==='production'
+const pgp = require('pg-promise')();
 
-   //connection string 
- const con = 'postgres://postgres:vlad@localhost:5432/project5'
+// const pgp = require('pg')
+// const isProduction =process.env.NODE_ENV ==='production'
 
- //  const con =  `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATEBASE}`
-     //const db= pgp({ con:isProduction ? process.env.DB_DATEBASE_URL:con })
-    
-   //create new instance of database 
-   const db = pgp(con)
 
-   //exporting the database
-   module.exports = db
+//connection string
+//  const con = 'postgres://postgres:rajgopal@localhost:5432/project5'
+
+const con = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+//  const db= pgp({ con:isProduction ? process.env.DB_DATEBASE_URL:con })
+
+//create new instance of database
+const db = pgp(con);
+
+//exporting the database
+module.exports = db;
