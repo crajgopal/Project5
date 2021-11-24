@@ -7,6 +7,7 @@ const pgp = require('pg-promise')();
 // const pgp = require('pg')
 // const isProduction =process.env.NODE_ENV ==='production'
 
+
 //connection string
 //  const con = 'postgres://postgres:rajgopal@localhost:5432/project5'
 
