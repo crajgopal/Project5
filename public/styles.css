@@ -11,6 +11,8 @@ body {
     font: 600 16px/18px 'Open Sans', sans-serif
 }
 
+
+
 .row{
   margin-right:0px;
   margin-left: 0px;
@@ -26,7 +28,7 @@ body {
   /*background-image: url(https://cdn.pixabay.com/photo/2019/04/24/21/55/cinema-4153289_960_720.jpg);*/
   background-size:100% 100% ;
   margin:auto; 
- height:100%;
+  height:100%;
 }
 @media (min-width:768px) {
   .bg-image{

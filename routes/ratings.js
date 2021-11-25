@@ -94,65 +94,64 @@ router.get('/', redirectLogin, (req, res)=>{
        })
     })
            
+router.get('/:id',(req, res)=>{
 
+  res.render('pages/movieratings')
+})
 
-//get newratings page 
+router.post('/:id',(req, res)=>{
+  console.log(req.params.id)
+  console.log(req.body.rating)
+  console.log(req.session.userId)
+  const movieid =parseInt(req.params.id)
+  const userid= req.session.userId
 
-  router.get('/movieratings', redirectLogin, (req, res)=>{
-    console.log("In ratings")
-    db.any("SELECT * FROM ratings;")
-       .then((ratings) => {
-        db.any('SELECT * FROM users;')
-        .then((users)=>{
-    
-         res.render('pages/movieratings' , {
-            title:'Rating website',
-            ratings,
-            length:users.length,
-            users,
-            message: req.query.message
-    
-        });
-     })
-    
-      .catch((error) =>{
-    
-        console.log(error)
-        res.redirect("/error?message ="+ error.message)
+if(typeof (req.body.rating) !='undefined'){
+ db.one('INSERT INTO ratings(user_id, movie_id, rating) VALUES ($1,$2,$3) RETURNING movie_id, rating ;',[userid, movieid,req.body.rating])
+ .then((data)=>{
+   console.log(data)
+    })
+
+ .catch((error)=>{
+  console.log(error)
+  res.redirect("/error?message ="+ error.message) })
+
+  db.any('SELECT rating FROM ratings WHERE movie_id =$1',[movieid])
+  .then((ratings)=>{
+        console.log(ratings)
+        let sum =0 , avg=0;
+         for (let i=0 ;i<ratings.length; i++){
+          sum += ratings[i].rating
+         }
+         console.log(sum)
+         avg =sum/ratings.length
+         console.log(avg)
+    res.render('pages/movieratings',{avg})
+    })
+   .catch((error)=>{
+     res.redirect("/error?message ="+ error.message) 
       })
-      
-    
-    })
-    .catch((error) =>{
-    
-      console.log(error)
-      res.redirect("/error?message ="+ error.message)
-    })
-    
-    })
- 
-  
+
+
+}
+
+
+ else {
+  res.render('pages/movieratings')
+
+ }
+})
+
+
 //create new ratings
 
 router.post('/movieratings',redirectLogin, (req, res)=>{
   const {user_id, movie_id,rating} =req.body
-   
+  console.log("In post moveratings")
+  console.log(req.body)
+  
 
-  //add ratings to db
-  
-  db.none('INSERT INTO ratings(user_id, movie_id, rating) VALUES($1, $2, $3);',[user_id, movie_id,rating])
-  
-  
-  .then(() =>{
-
-  res.redirect('/ratings?message=Post+successfully+added') })
-  
-  .catch((error)=>{
-  
-  console.log(error)
-  
-  res.redirect("/error?message=" + error.message)
-  })
+  res.render('pages/movieratings')
   })
   
    

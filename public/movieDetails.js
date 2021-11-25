@@ -34,12 +34,10 @@ function getMovie(){
      <li class ="list-group-item"> <strong>Vote Count : </strong>${movie.vote_count}</li>
      <li class ="list-group-item"> <strong>Release Date : </strong>${movie.release_date}</li>
      <li class ="list-group-item"> <strong>Revenue : </strong>${movie.revenue}</li>
-     <li class ="list-group-item"><div class="stars">
-     <a>⭐</a>
-       <a>⭐</a>
-         <a>⭐</a>
-           <a>⭐</a>
-             <a>⭐</a>  
+     <li class ="list-group-item">
+     Your rating  :<div class="form-group"><form method ="POST" action='/ratings/${movie.id}' class="form-inline mr-auto" target="_self" id ="ratingForm">
+         <input class="form-control search-field" type="text" name="rating" id="rating-field" placeholder="/5"> <button class ="btn btn-light action-button" role ="button">Submit</button>
+         
      </li>
      </ul>
       </div>
@@ -54,4 +52,3 @@ function getMovie(){
   console.log(error)
     })  
   }
-  
