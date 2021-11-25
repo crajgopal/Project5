@@ -135,7 +135,7 @@ router.post('/movieratings', redirectLogin, (req, res) => {
 
 router.get('/movieavgrating/:id', (req, res) => {
   db.any(
-    'SELECT AVG(rating)::numeric(10,2) FROM ratings WHERE movie_id = $1;',
+    'SELECT AVG(rating)::numeric(10,1) FROM ratings WHERE movie_id = $1;',
     [req.params.id]
   )
     .then((data) => {
