@@ -3,36 +3,44 @@ const img_base_url1 = 'https://image.tmdb.org/t/p/w500/';
 
 // Gets movie average rating from our DB
 
-const getMovieRatings = (movieId) => {
-  db.oneOrNone('SELECT AVG(rating) FROM ratings WHERE movie_id = $1;', [
-    movieId,
-  ])
-    .then((movieRatingsAvg) => {
-      console.log(movieRatingsAvg);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// const getMovieRatings = (movieId) => {
+//   db.oneOrNone('SELECT AVG(rating) FROM ratings WHERE movie_id = $1;', [
+//     movieId,
+//   ])
+//     .then((movieRatingsAvg) => {
+//       console.log(movieRatingsAvg);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 // Function that renders movies in the homepage
 
 const displayMovies = (data) => {
+  $('#movies').empty();
   const { results } = data;
-  let output = '';
   results.forEach((movie) => {
-    output += `  
+    $.ajax({
+      method: 'GET',
+      url: `/ratings/movieavgrating/${movie.id}`,
+      success: (data) => {
+        const output = `  
    <div class ="col-md-3">
     <div class ="well text-center">
      <img src ="${img_base_url}${movie.poster_path}">
       <h5>${movie.title}</h5>
-      <h4>Rating :${movie.vote_average}</h4>
-      <form  method ="post" action="/movie" onclick ="movieSelected(${movie.id})" class ="btn btn-primary" id ="movieButton" type ="submit" >Movie Details</form>
+      <h4>Rating :${data ? data : 'No ratings yet'}</h4>
+      <form  method ="post" action="/movie" onclick ="movieSelected(${
+        movie.id
+      })" class ="btn btn-primary" id ="movieButton" type ="submit" >Movie Details</form>
       </div>
       </div>
        `;
+        $('#movies').append(output);
+      },
+    });
   });
-  $('#movies').html(output);
 };
 
 // Function that fetches movies filtered by selected genre from The MovieDB
@@ -61,23 +69,29 @@ function getMovies(searchText) {
     `https://api.themoviedb.org/3/search/movie?api_key=7063359f4e85964f78dd5c2aa4165728&query=${searchText}`
   )
     .then((data) => {
+      $('#movies').empty();
       const { results } = data;
-      let output = '';
       results.forEach((movie) => {
-        output += `  
+        $.ajax({
+          method: 'GET',
+          url: `/ratings/movieavgrating/${movie.id}`,
+          success: (data) => {
+            const output = `  
      <div class ="col-md-3">
       <div class ="well text-center">
        <img src ="${img_base_url}${movie.poster_path}">
         <h5>${movie.title}</h5>
-        <h4>Rating :${movie.vote_average}</h4>
-        <form  method ="post" action="/movie" onclick ="movieSelected(${movie.id}) ;getMovie()" class ="btn btn-primary" id ="movieButton" type ="submit" >Movie Details</form>
+        <h4>Rating :${data ? data : 'No ratings yet'}</h4>
+        <form  method ="post" action="/movie" onclick ="movieSelected(${
+          movie.id
+        }) ;getMovie()" class ="btn btn-primary" id ="movieButton" type ="submit" >Movie Details</form>
         </div>
         </div>
          `;
+            $('#movies').append(output);
+          },
+        });
       });
-      $('#movies').empty();
-
-      $('#movies').html(output);
     })
     .catch((error) => {
       console.log(error);
