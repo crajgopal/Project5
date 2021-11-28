@@ -87,18 +87,30 @@ router.post('/:id', (req, res) => {
   const userid = req.session.userId;
 
   if (typeof req.body.rating != 'undefined') {
-    db.one(
-      'INSERT INTO ratings(user_id, movie_id, rating) VALUES ($1,$2,$3) RETURNING movie_id, rating ;',
-      [userid, movieid, req.body.rating]
+    db.oneOrNone(
+      'SELECT rating FROM ratings WHERE movie_id = $1 AND user_id = $2',
+      [req.params.id, req.session.userId]
     )
       .then((data) => {
-        console.log(data);
-        res.render('pages/movieratings');
-      })
+        if (!data) {
+          db.one(
+            'INSERT INTO ratings(user_id, movie_id, rating) VALUES ($1,$2,$3) RETURNING movie_id, rating ;',
+            [userid, movieid, req.body.rating]
+          )
+            .then(() => {
+              res.render('pages/movieratings');
+            })
 
-      .catch((error) => {
-        console.log(error);
-        res.redirect('/error?message =' + error.message);
+            .catch((error) => {
+              console.log(error);
+              res.redirect('/error?message =' + error.message);
+            });
+        } else {
+          return res.render('pages/movieratings');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   } else {
     res.render('pages/movieratings');
