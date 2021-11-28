@@ -93,27 +93,11 @@ router.post('/:id', (req, res) => {
     )
       .then((data) => {
         console.log(data);
+        res.render('pages/movieratings');
       })
 
       .catch((error) => {
         console.log(error);
-        res.redirect('/error?message =' + error.message);
-      });
-
-    db.any('SELECT rating FROM ratings WHERE movie_id =$1', [movieid])
-      .then((ratings) => {
-        console.log(ratings);
-        let sum = 0,
-          avg = 0;
-        for (let i = 0; i < ratings.length; i++) {
-          sum += ratings[i].rating;
-        }
-        console.log(sum);
-        avg = sum / ratings.length;
-        console.log(avg);
-        res.render('pages/movieratings', { avg });
-      })
-      .catch((error) => {
         res.redirect('/error?message =' + error.message);
       });
   } else {
